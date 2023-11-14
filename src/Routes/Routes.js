@@ -12,6 +12,7 @@ import InvoicesPerCompany from './CompanyPortal/InvoicesPerCompany';
 import AllInvoices from './AdminPortal/Invoices';
 import AddInvoice from './AdminPortal/AddInvoice';
 import LoggedOut from './LoggedOut';
+import AddNewCompany from './AdminPortal/AddNewCompany';
 // import Register from './Register';
 
 const Router = () => {
@@ -26,6 +27,7 @@ const Router = () => {
             <Route path="companyinvoices" element={<InvoicesPerCompany />} />
             <Route path="allinvoices" element={<AllInvoices />} />
             <Route path="AddInvoice" element={<AddInvoice />} />
+            <Route path="AddNewCompany" element={<AddNewCompany />} />
             <Route path="LoggedOut" element={<LoggedOut />} />
             {/*<Route path="register" element={<Register />} />*/}
             <Route path="*" element={<NotFound />} /> 

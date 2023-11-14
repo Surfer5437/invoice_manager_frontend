@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = process.env.REACT_APP_API_ADDRESS || "http://localhost:3001";
 
 /** API Class.
  *
@@ -17,11 +17,9 @@ class ImApi {
   
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
-
-    //there are multiple ways to pass an authorization token, this is how you pass it in the header.
-    //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
+ 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${ImApi.token}` };
+    const headers = { Authorization: `Bearer ${ImApi.token}`};
     const params = (method === "get")
         ? data
         : {};

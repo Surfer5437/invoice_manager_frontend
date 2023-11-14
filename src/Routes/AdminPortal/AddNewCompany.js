@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ImApi from "../api";
-import CompanyJSXList from './CompanyJSXList';
 
 function  AddNewCompany () {
     const initialState = {
