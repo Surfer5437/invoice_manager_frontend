@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 
 
 const BASE_URL = process.env.REACT_APP_API_ADDRESS || "http://localhost:3001";
@@ -14,24 +14,64 @@ const BASE_URL = process.env.REACT_APP_API_ADDRESS || "http://localhost:3001";
 class ImApi {
   // the token for interactive with the API will be stored here.
   static token;
-  
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
- 
-    const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${ImApi.token}`};
-    const params = (method === "get")
-        ? data
-        : {};
-
+  
+    let url = `${BASE_URL}/${endpoint}`;
+    const headers = new Headers({
+      Authorization: `Bearer ${ImApi.token}`,
+      'Content-Type': 'application/json', // Adjust the content type if necessary
+    });
+  
+    const requestOptions = {
+      method,
+      headers,
+      credentials: 'include', // Equivalent to withCredentials: true in Axios
+    };
+  
+    if (method === "get") {
+      // Append query parameters to the URL for GET requests
+      const queryParams = new URLSearchParams(data);
+      url += `?${queryParams}`;
+    } else {
+      // For non-GET requests, include the data in the request body
+      requestOptions.body = JSON.stringify(data);
+    }
+  
     try {
-      return (await axios({ url, method, data, params, headers, withCredentials:true })).data;
+      const response = await fetch(url, requestOptions);
+      const responseData = await response.json();
+  
+      if (!response.ok) {
+        console.error("API Error:", responseData);
+        throw Array.isArray(responseData.error) ? responseData.error : [responseData.error.message];
+      }
+  
+      return responseData;
     } catch (err) {
-      console.error("API Error:", err.response);
-      let message = err.response.data.error.message;
-      throw Array.isArray(message) ? message : [message];
+      console.error("Fetch Error:", err);
+      throw Array.isArray("An error occurred while making the API request.");
     }
   }
+  
+
+  // static async request(endpoint, data = {}, method = "get") {
+  //   console.debug("API Call:", endpoint, data, method);
+ 
+  //   const url = `${BASE_URL}/${endpoint}`;
+  //   const headers = { Authorization: `Bearer ${ImApi.token}`};
+  //   const params = (method === "get")
+  //       ? data
+  //       : {};
+
+  //   try {
+  //     return (await axios({ url, method, data, params, headers, withCredentials:true })).data;
+  //   } catch (err) {
+  //     console.error("API Error:", err.response);
+  //     let message = err.response.data.error.message;
+  //     throw Array.isArray(message) ? message : [message];
+  //   }
+  // }
 
   // Individual API routes
 
