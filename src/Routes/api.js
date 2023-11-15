@@ -31,8 +31,7 @@ class ImApi {
    const config = {
       method,
       url,
-      data, 
-      params: (method !== "get") ? data : {},
+      data,
       withCredentials: true,
     };
 
@@ -117,6 +116,7 @@ class ImApi {
   
   static async loginUser(info) {
     let res = await this.request(`auth/token/`, info, 'post' );
+    console.log(res)
     return (res);
   }
 
