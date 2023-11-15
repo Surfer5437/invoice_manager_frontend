@@ -26,14 +26,12 @@ class ImApi {
 
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${ImApi.token}`};
-    const params = (method !== "get") ? data : {};
+    const params = (method === "get") ? data : {};
 const config = {
   method,
   url,
   data,
   params,
-  headers,
   withCredentials: true, // Include this line
 }
     try {
