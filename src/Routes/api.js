@@ -11,6 +11,7 @@ const BASE_URL = process.env.REACT_APP_API_ADDRESS || "http://localhost:3001";
  *
  */
 
+
 class ImApi {
   // the token for interactive with the API will be stored here.
   static token;
@@ -18,15 +19,25 @@ class ImApi {
 
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
- 
+
+    
+
+
+
+
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${ImApi.token}`};
-    const params = (method === "get")
-        ? data
-        : {};
-
+    const params = (method === "get") ? data : {};
+const config = {
+  method,
+  url,
+  data,
+  params,
+  headers,
+  withCredentials: true, // Include this line
+}
     try {
-      return (await axios({ url, method, data, params, headers, withCredentials:true })).data;
+      return (await axios(config)).data;
     } catch (err) {
       console.error("API Error:", err.response);
       let message = err.response.data.error.message;
