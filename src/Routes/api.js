@@ -22,18 +22,28 @@ class ImApi {
 
     
 
-
+ 
+    
 
 
     const url = `${BASE_URL}/${endpoint}`;
-    const params = (method === "get") ? data : {};
-const config = {
-  method,
-  url,
-  data,
-  params,
-  withCredentials: true, // Include this line
-}
+
+   const config = {
+      method,
+      url,
+      params: (method === "get") ? data : {},
+      withCredentials: true,
+    };
+
+
+    //     const params = (method === "get") ? data : {};
+// const config = {
+//   method,
+//   url,
+//   data,
+//   params,
+//   withCredentials: true, // Include this line
+// }
     try {
       return (await axios(config)).data;
     } catch (err) {
