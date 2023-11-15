@@ -14,6 +14,7 @@ return (
       <div className="col-md-6 custom-container mx-auto">
     {localStorage.getItem('username')?<Welcome />:<><Login /></>}
     {localStorage.getItem('username')?<button className="btn btn-primary btn-block" onClick={logout}>Logout</button>:null}
+    <div>V2</div>
         </div>
       </div>
     </div>

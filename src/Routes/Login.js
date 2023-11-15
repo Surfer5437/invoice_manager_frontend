@@ -17,21 +17,20 @@ function  Login () {
             [name]: value
         }))
     }
-
-   async function  handleSubmit (e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         try {
-            await ImApi.loginUser(formData).then((result)=>{
-                localStorage.setItem('username', result.username);
-                localStorage.setItem('is_admin', result.is_admin);
-                localStorage.setItem('company_id', result.company_id);
-            });
-            console.log()
+            const result = await ImApi.loginUser(formData);
+            localStorage.setItem('username', result.username);
+            localStorage.setItem('is_admin', result.is_admin);
+            localStorage.setItem('company_id', result.company_id);
             window.location.reload();
-        } catch (err){
-
-            }
+        } catch (err) {
+            console.error("Error during login:", err);
+            // Handle the error as needed, for example, display an error message.
+        }
     }
+    
 
     return (
         <div className="container border rounded p-4 my-3">
