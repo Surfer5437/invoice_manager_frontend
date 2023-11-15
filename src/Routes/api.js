@@ -31,7 +31,8 @@ class ImApi {
    const config = {
       method,
       url,
-      params: (method === "get") ? data : {},
+      data, 
+      params: (method !== "get") ? data : {},
       withCredentials: true,
     };
 
